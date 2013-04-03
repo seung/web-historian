@@ -31,7 +31,6 @@ exports.handleRequest = function (request, response) {
         var urlObject = qs.parse(chunk)['url'];
         var urlStr = urlObject+ '\n';
         fs.appendFileSync(testDataDir, urlStr);
-        console.log('urlStr : '+ urlStr)
       });
 
       statusCode = 302;
@@ -39,56 +38,29 @@ exports.handleRequest = function (request, response) {
   }
 
   var handleGet = function(request, response) {
-    statusCode = 200; // (http|https):\/\/
-    //var regex = new RegExp(/((\w+:{0,1}\w*@)?(\S+)|)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/);
+    statusCode = 200;
     var regex = new RegExp(/w{3}[\.][a-zA-Z\d]+[\.][a-zA-Z\d]+/);
-    console.log('ln45 request url: '+request.url)
-
     urlPath = url.parse(request.url).path;
     urlExists = new RegExp(urlPath,"g"); //-->  /www.google.com/g
-    console.log('\n\nurlPath : '+urlPath);
-    console.log('regex.test(urlPath) : '+ regex.test(urlPath));
-    console.log('urlExists.test(urlPath) : '+ regex.test(urlExists));
 
     var content = "";
 
       // rooturl case
     if(request.url === "http://127.0.0.1:8080/" ) {
-      content = fs.readFileSync(localDir); // ..index.html
-      var rootcontent = content;
-      var rootregex = new RegExp("<input","g");
-      console.log("root request.url : "+request.url)
-      console.log( " rootregex test: " + rootregex.test(rootcontent));
-    } else {
-      if(regex.test(urlPath) && urlExists.test(urlPath)) {
+      content = fs.readFileSync(localDir);
+    } else if(regex.test(urlPath) && urlExists.test(urlPath)) {
         content = fs.readFileSync(siteDir+urlPath);
-        console.log("siteDir+urlPath : "+siteDir+urlPath);
-      } else {
-        statusCode = 404;
-        response.end()
-      };
-    }
+    } else {
+      statusCode = 404;
+      response.end();
+    };
 
-                  // if(request.url === "http://127.0.0.1:8080/" ) {
-                  //   content = fs.readFileSync(localDir);
-                  //   // response.end(content);
-                  // } else {
-                  //   urlPath = url.parse(request.url).path;
-                  //   urlExists = new RegExp(urlPath,"g"); //-->  /www.google.com/
-                  //     // if urlPath is not valid format or if it doesn't exists in sites.txt
-                  //   if(!regex.test(urlPath) || !urlExists.test(urlPath)) {
-                  //     statusCode = 404;
-                  //     response.end()
-                  //   }
-                  // };
     return content;
   }
 
   var handleOptions = function(request, response) {
     console.log('\n\nhandleOptions called');
     statusCode = 200;
-    console.log('handleOptions')
-    // response.end();
   }
 
   var handlers = {
