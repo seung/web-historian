@@ -44,8 +44,10 @@ describe("Node Server Request Listener Function", function() {
     var req = new stubs.Request("http://127.0.0.1:8080/", "POST", {url: url});
 
     handler.handleRequest(req, res);
-
+    console.log('handler.datadir : ',handler.datadir);
+    //-> handler.datadir :  /Users/Catalyst/Desktop/tony/web-historian/spec/testdata/sites.txt
     var fileContents = fs.readFileSync(handler.datadir, ['utf8']);
+    console.log('fileContents : ',fileContents);
     expect(res._responseCode).toEqual(302);
     expect(fileContents).toEqual(url + "\n");
     // expect(res._ended).toEqual(true);
