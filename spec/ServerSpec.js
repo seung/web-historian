@@ -1,4 +1,5 @@
 var fs = require('fs');
+var url = require('url');
 var handler = require("../web/request-handler");
 var stubs = require("./helpers/stubs");
 var res;
@@ -47,7 +48,7 @@ describe("Node Server Request Listener Function", function() {
 
     var fileContents = fs.readFileSync(handler.datadir, ['utf8']);
     expect(res._responseCode).toEqual(302);
-    // expect(fileContents).toEqual(url + "\n");
+    expect(fileContents).toEqual(url + "\n");
     // expect(res._ended).toEqual(true);
   });
 
