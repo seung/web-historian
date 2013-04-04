@@ -23,8 +23,21 @@
   <script type="text/javascript">
     $('.submit').on('click', function() {
       var sitename = $('.siteUrl').val();
-      alert(sitename)
-    })
+        $.ajax({
+            url: "http://127.0.0.1:8080",
+            type: 'POST',
+            data: sitename,
+            success: function(data) {
+              console.log('sent ' + data + ' to server!' );
+            },
+            error: function() {
+              throw new Error('Post fail!');
+            }
+        });
+      })
   </script>
 </body>
 </html>
+
+<!-- var regex = new RegExp(/w{3}[\.][a-zA-Z\d]+[\.][a-zA-Z\d]+/); -->
+
