@@ -2,10 +2,29 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="styles.css" />
+  <link rel="stylesheet" ltype="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css">
+  <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
-  <form method="POST">
-    <input type="input" name="url"></input>
+<div class = "container-fluid">
+  <form>
+    <fieldset>
+      <label><h3>Enter Url here:</h3></label>
+      <input type="text" class="siteUrl" placeholder="www.google.com">
+      <span class="help-block">Example block-level help text here.</span>
+      <button type="submit" class="btn btn-info submit">Submit</button>
+    </fieldset>
   </form>
+</div>
+  <!-- <form method="POST">
+    Site: <input class="site" type="input" name="url" placeHolder="site"></input>
+    <input class="submit" type="submit" value="Submit">
+  </form> -->
+  <script type="text/javascript">
+    $('.submit').on('click', function() {
+      var sitename = $('.siteUrl').val();
+      alert(sitename)
+    })
+  </script>
 </body>
 </html>
