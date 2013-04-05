@@ -24,4 +24,11 @@ describe("html fetcher helpers", function(){
     var result = htmlFetcherHelpers.downloadUrls();
     expect(result).toBeTruthy();
   });
+
+  it("should have a 'validateUrl' function", function(){
+    var result = htmlFetcherHelpers.validateUrl('www.google.com');
+    expect(result).toEqual();
+    result = htmlFetcherHelpers.validateUrl('www.somethingelse.com');
+    expect(result).toEqual('www.somethingelse.com');
+  });
 });
