@@ -3,7 +3,6 @@ var http = require('http-get');
 var dataDir = process.env.HOME + "/Desktop/tony/web-historian/data/sites.txt";
 var siteDir = process.env.HOME + "/Desktop/tony/web-historian/data/sites/";
 var testDataDir = process.env.HOME + "/Desktop/tony/web-historian/spec/testdata/sites/";
-console.log('process.env.HOME : '+process.env.HOME)
 
 exports.readUrls = function(filePath, cb){
   fs.readFile(filePath, 'utf8', function(err, content){
