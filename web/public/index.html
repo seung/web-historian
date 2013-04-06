@@ -16,28 +16,24 @@
     </fieldset>
   </form>
 </div>
-  <!-- <form method="POST">
-    Site: <input class="site" type="input" name="url" placeHolder="site"></input>
-    <input class="submit" type="submit" value="Submit">
-  </form> -->
   <script type="text/javascript">
     $('.submit').on('click', function() {
       var sitename = $('.siteUrl').val();
+        console.log('sitename : '+sitename);
         $.ajax({
-            url: "http://127.0.0.1:8080",
             type: 'POST',
+            url: "http://127.0.0.1:8080",
             data: sitename,
             success: function(data) {
               console.log('sent ' + data + ' to server!' );
+              console.log('pause');
             },
             error: function() {
-              throw new Error('Post fail!');
+              //throw new Error('Post fail!');
+              console.log('error');
             }
         });
       })
   </script>
 </body>
 </html>
-
-<!-- var regex = new RegExp(/w{3}[\.][a-zA-Z\d]+[\.][a-zA-Z\d]+/); -->
-

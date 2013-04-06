@@ -40,6 +40,7 @@ describe("Node Server Request Listener Function", function() {
   it("Should accept posts to /", function() {
     fs.writeFileSync(handler.datadir, ""); // reset the test file
 
+    // var url = "www.example.com";
     var url = "www.example.com";
     var req = new stubs.Request("http://127.0.0.1:8080/", "POST", {url: url});
 

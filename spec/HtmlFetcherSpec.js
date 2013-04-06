@@ -23,5 +23,6 @@ describe('html fetcher', function(){
     //expect(htmlFetcher.saveUrl('www.example.com')).toEqual('www.example.com');
     // var regex = new RegExp(url,"g");
     // expect(fs.readFileSync(dataDir).toMatch(regex);
+      // expect(url)
   });
 })
