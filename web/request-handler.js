@@ -1,3 +1,26 @@
+<<<<<<< HEAD
+var fs = require('fs'),
+  http = require('http'),
+   url = require('url'),
+  path = require('path');
+
+// Tests will need to override this.
+var datadir = path.join(__dirname + '../..' + "/data/sites.txt");
+
+var handleRequest = function (request, response) {
+  var data;
+
+  if (request.method === 'GET') {
+    response.statusCode = 200;
+    var filePath = path.join(__dirname, 'public', request.url);
+
+    // If the user doesn't provide a URL, serve them index.html by default
+    (request.url === '/') && filePath += 'index.html';
+
+    // Check if the URL matches a filename and serve that file if it does
+    fs.existsSync(filePath) ? data = fs.readFileSync(filePath)
+                            : response.statusCode = 404;
+=======
 var http = require('http');
 var url = require('url');
 var qs = require('querystring');
@@ -51,48 +74,31 @@ exports.handleRequest = function (request, response) {
       statusCode = 302;
       // statusCode = 200;
     }
+>>>>>>> e18ce516cf83ca621dc7a8b2c0cb0116d38994a1
   }
 
-  var handleGet = function(request, response) {
-    statusCode = 200;
-    var regex = new RegExp(/w{3}[\.][a-zA-Z\d]+[\.][a-zA-Z\d]+/);
-    urlPath = url.parse(request.url).path;
-    urlExists = new RegExp(urlPath,"g"); //-->  /www.google.com/g
+  if (request.method === 'POST') {
+    var postData = '';
+    response.statusCode = 302;
 
-    var content = "";
+    request.on('data', function(chunk) {
+      postData += chunk;
+    });
 
-      // rooturl case
-    if(request.url === "http://127.0.0.1:8080/" ) {
-      content = fs.readFileSync(localDir);
-    } else if(regex.test(urlPath) && urlExists.test(urlPath)) {
-        content = fs.readFileSync(siteDir+urlPath);
-    } else {
-      statusCode = 404;
-      response.end();
-    };
-
-    return content;
+    request.on('end', function() {
+      (!checkDuplicate(postData)) ? fs.appendFileSync(datadir, postData + '\n')
+                                  : console.log('URL already exists in the database.');
+    });
   }
 
-  var handleOptions = function(request, response) {
-    console.log('\n\nhandleOptions called');
-    statusCode = 200;
-  }
-
-  var handlers = {
-    'POST'    : handlePost,
-    'GET'     : handleGet,
-    'OPTIONS' : handleOptions
-  }
-  
-  content = handlers[request.method](request, response);
-  console.log("Serving request type " + request.method
-                          + " for url " + request.url);
-
-  response.writeHead(statusCode, headers);
-  response.end(content + '\n');
+  response.end(data);
 };
 
+var checkDuplicate = function (url) {
+  var urls = fs.readFileSync(datadir,'utf8').split('\n');
+  return (urls.indexOf(url) === -1) ? false : true
+}
 
-
-
+exports.handleRequest = handleRequest;
+exports.datadir = datadir;
+exports.checkDuplicate = checkDuplicate;

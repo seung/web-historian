@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+var path = require('path');
+var helpers = require('./lib/html-fetcher-helpers');
+var datadir = path.join(__dirname + '../..' + "/data/sites.txt");
+
+helpers.readUrls(datadir, helpers.downloadUrls);
+=======
 // eventually, you'll have some code here that uses the tested helpers 
 // to actually download the urls you want to download.
 var fs = require("fs");
@@ -13,3 +20,4 @@ new cronJob('* * * * *', function(){
     htmlFetcherHelpers.downloadUrls();
 }, null, true, "America/Los_Angeles");
 
+>>>>>>> e18ce516cf83ca621dc7a8b2c0cb0116d38994a1

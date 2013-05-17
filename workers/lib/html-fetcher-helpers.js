@@ -1,3 +1,28 @@
+<<<<<<< HEAD
+var  fs = require('fs'),
+    url = require('url'),
+   path = require('path'),
+   http = require('http-get'),
+datadir = path.join(__dirname + '/../..' + "/data/sites.txt"),
+sitedir = path.join(__dirname + '/../..' + "/data/sites/");
+
+var readUrls = function(filePath, callback){
+  var siteList = fs.readFileSync(datadir, 'utf8');
+  return callback(siteList.split('\n'));
+};
+
+var downloadUrls = function(urls){
+  urls.forEach(function(url) {
+    var destination = sitedir + url + '.html';
+    http.get(url, destination, function(error, result) {
+      error ? console.log(error) : console.log('File downloaded at: ' + result.file);  
+    })    
+  }) 
+};
+
+exports.readUrls = readUrls;
+exports.downloadUrls = downloadUrls;
+=======
 var fs = require("fs");
 var http = require('http-get');
 var dataDir = process.env.HOME + "/Desktop/tony/web-historian/data/sites.txt";
@@ -41,3 +66,4 @@ exports.downloadUrls = function(urls){
   return true;
 };
 
+>>>>>>> e18ce516cf83ca621dc7a8b2c0cb0116d38994a1
