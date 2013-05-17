@@ -5,4 +5,3 @@ the [Hack Reactor](http://hackreactor.com) curriculum. This project was worked
 on with a pair, and as such is representative of the kind of problems that I've
 tackled, but not of my solo work.
 
-For a better perspective on my own work, please see []().
